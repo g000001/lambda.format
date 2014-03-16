@@ -45,7 +45,12 @@ DROP-LEADING-ZERO means print .123 rather than 0.123 ."
       (:which-operations
        (typecase s
          (string-stream (list :string-out))
-         (stream (list :print))))
+         (stream (list :print :read-cursorpos))))
+      (:read-cursorpos
+       #+sbcl
+       (if (sb-impl::ansi-stream-p s)
+           (sb-kernel:charpos s)
+           (sb-gray:stream-line-column s)))
       (otherwise (error "send: unknown type ~A." type)))))
 
 (defun send-if-handles (&rest args)
