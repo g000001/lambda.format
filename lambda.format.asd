@@ -5,7 +5,8 @@
 (defsystem :lambda.format
   :serial t
   :depends-on (:fiveam
-               :zl-compat)
+               :zl-compat
+               :lambda.time)
   :components ((:file "package")
                (:file "util")
                (:file "lambda.format")))
